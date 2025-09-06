@@ -297,6 +297,16 @@ capacity to hold the result, its length can be anything. It should
 not overlap other argument slices. The return value is the destination slice resized
 to the length of the result.
 
+## Notes
+
+For maximum performance, most functions in this library were compiled from C++ using 
+`-ffast-math` optimizations. This trades strict IEEE 754 floating-point compliance for 
+speed, but assumes the floating point inputs are never `NaN` or `Inf`.
+
+The behavior of these functions is undefined if you do generate `NaN` or `Inf` values. 
+Furthermore, there can be minor differences in precision compared to standard Go math 
+as a result of these optimizations.
+
 ## Benchmarks
 
 Comparison of SIMD accelerated functions to the pure Go fallback version for different size slices.
